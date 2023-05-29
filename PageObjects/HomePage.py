@@ -16,19 +16,16 @@ class HomePage:
         self.driver.find_element(*HomePage.SEARCH_PRODUCT).send_keys(product_name)
         time.sleep(4)
 
-    def get_products_count(self):
+    def get_product_count(self):
         return len(self.driver.find_elements(*HomePage.PRODUCTS_COUNT))
 
-    def get_add_to_card_buttons(self):
-        return self.driver.find_elements(*HomePage.ADD_TO_CARD_BUTTON)
-
     def get_product_names_and_add_to_card(self):
-        list = []
-        buttons = self.get_add_to_card_buttons()
+        product_name_list = []
+        buttons = self.driver.find_elements(*HomePage.ADD_TO_CARD_BUTTON)
         for button in buttons:
-            list.append(button.find_element(*HomePage.PRODUCT_NAME).text)
+            product_name_list.append(button.find_element(*HomePage.PRODUCT_NAME).text)
             button.click()
-        return list
+        return product_name_list
 
     def verify_product_count(self, actual_count: int, expected_count: int):
         if actual_count != expected_count:
