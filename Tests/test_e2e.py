@@ -1,5 +1,3 @@
-import pytest
-
 from PageObjects.CartPage import CartPage
 from PageObjects.HomePage import HomePage
 from Utilities.BaseClass import BaseClass
@@ -14,7 +12,7 @@ class TestLogin(BaseClass):
         homePage = HomePage(self.driver)
         log.info("Searching for products including " + self.PRODUCT_SEARCH_NAME)
         homePage.search_product(self.PRODUCT_SEARCH_NAME)
-        product_count = homePage.get_products_count()
+        product_count = homePage.get_product_count()
         assert homePage.verify_product_count(actual_count=product_count, expected_count=3)
         log.info("There were 3 products with " + self.PRODUCT_SEARCH_NAME)
         product_list_from_search_result = homePage.get_product_names_and_add_to_card()
@@ -35,7 +33,3 @@ class TestLogin(BaseClass):
         product_amount_sum = checkoutPage.get_initial_total_amount()
         assert checkoutPage.verify_table_product_sum_is_equal_to_total_sum_before_discount(
             table_product_sum=table_product_amount_sum, total_sum_before_discount=product_amount_sum)
-
-    # @pytest.fixture(params=["p", "berry"])
-    # def get_data(self, request):
-    #     return request.param
