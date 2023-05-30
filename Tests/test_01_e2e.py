@@ -3,7 +3,7 @@ from PageObjects.HomePage import HomePage
 from Utilities.BaseClass import BaseClass
 
 
-class TestLogin(BaseClass):
+class Test_E2E(BaseClass):
     PRODUCT_SEARCH_NAME = "ber"
     VALID_PROMO_CODE = "rahulshettyacademy"
     COUNTRY_NAME = "Armenia"
