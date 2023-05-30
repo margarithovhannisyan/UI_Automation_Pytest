@@ -6,6 +6,7 @@ from Utilities.BaseClass import BaseClass
 class TestLogin(BaseClass):
     PRODUCT_SEARCH_NAME = "ber"
     VALID_PROMO_CODE = "rahulshettyacademy"
+    COUNTRY_NAME = "Armenia"
 
     def test_e2e(self):
         log = self.get_logger()

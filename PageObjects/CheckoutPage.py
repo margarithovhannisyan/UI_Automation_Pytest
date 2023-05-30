@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 
 
@@ -14,6 +15,11 @@ class CheckoutPage:
     APPLY_PROMO_CODE_BUTTON = (By.CSS_SELECTOR, ".promoBtn")
     PROMO_CODE_APPLICATION_INFO = (By.CSS_SELECTOR, "span.promoInfo")
     TOTAL_AMOUNT_PER_PRODUCT = (By.XPATH, "//tr/td[5]/p")
+    PLACE_ORDER_BUTTON = (By.XPATH, "//div[@class='products']/div/button['Place Order']")
+    TERMS_AND_CONDITIONS_CHECKBOX = (By.XPATH, "//div/input[@type='checkbox']")
+    COUNTRY_STATIC_DROPDOWN = (By.XPATH, "//div/div/select")
+    PROCEED_BUTTON = (By.XPATH, "//div/button['Proceed']")
+    CHECKOUT_PROCEED_TEXT = (By.XPATH, "/div/div/div/div/span")
 
     def get_product_names_from_checkout_table(self):
         product_list_checkout = []
@@ -42,6 +48,19 @@ class CheckoutPage:
         self.driver.find_element(*CheckoutPage.APPLY_PROMO_CODE_BUTTON).click()
         wait = WebDriverWait(self.driver, 8)
         wait.until(expected_conditions.presence_of_element_located(self.PROMO_CODE_APPLICATION_INFO))
+
+    def click_place_order_button(self):
+        self.driver.find_element(*CheckoutPage.PLACE_ORDER_BUTTON).click()
+
+    def click_proceed_button(self):
+        self.driver.find_element(*CheckoutPage.PROCEED_BUTTON).click()
+
+    def check_uncheck_terms_and_conditions_checkbox(self):
+        self.driver.find_element(*CheckoutPage.TERMS_AND_CONDITIONS_CHECKBOX).click()
+
+    def choose_country(self, country_name):
+        static_dropdown = Select(self.driver.find_element(*CheckoutPage.COUNTRY_STATIC_DROPDOWN))
+        static_dropdown.select_by_value(country_name)
 
     def verify_product_names_from_checkout_table(self, actual_name_list: list, expected_name_list: list):
         if actual_name_list != expected_name_list:
