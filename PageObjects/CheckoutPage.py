@@ -81,3 +81,11 @@ class CheckoutPage:
             raise Exception("Total amount is not correctly calculated")
         else:
             return float(table_product_sum) == float(total_sum_before_discount)
+
+    def verify_valid_promo_code_is_applied(self):
+        promo_code_text = self.driver.find_element(*CheckoutPage.PROMO_CODE_APPLICATION_INFO).text
+        return promo_code_text=="Code applied ..!"
+
+    def verify_invalid_promo_code_is_applied(self):
+        promo_code_text = self.driver.find_element(*CheckoutPage.PROMO_CODE_APPLICATION_INFO).text
+        return promo_code_text=="Invalid code ..!"
